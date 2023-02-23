@@ -414,6 +414,10 @@
                 echo \DB::connection()->getDatabaseName();
             } catch (\Exception $e) {
                 echo 'None';
+                echo env('DB_HOST');
+                echo env('DB_DATABASE');
+                echo env('DB_USERNAME');
+                echo env('DB_PASSWORD');
             }
         ?>
             <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
