@@ -3,19 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
     
     public function login(LoginRequest $request)
     {
+        $credentials = $request->validated();
+        if (!Auth::attempt($credentials)) {
+            return response([
+                'message' => 'Invalid credentials'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
+        /** @var \App\Models\User $user **/
+        $user =  Auth::user();
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        $cookie = cookie('jwt', $token, 60);
+
+        return response([
+            'message' => 'Success'
+        ])->withCookie($cookie);
     }
 
-    public function logout(Request $request)
+    public function user()
     {
-
+        return Auth::user();
+    }
+    
+    public function logout()
+    {
+        $cookie = Cookie::forget('jwt');
+        return response([
+            'message' => 'Logged out'
+        ])->withCookie($cookie);
     }
 
 }
