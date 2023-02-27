@@ -6,6 +6,8 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\CategoryResource;
 use App\Models\Category;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
@@ -17,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
         return new CategoryCollection(Category::orderBy('id', 'asc')->get());
-   }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,7 +30,15 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        
+        $input = $request->validated();
+
+        if (Category::where('name', $input['name'])->exists()) {
+            return new JsonResponse([
+                'message' => 'The new category has already existed'
+            ], Response::HTTP_BAD_REQUEST);
+        } else {
+            return new CategoryResource(Category::create($input));
+        }
     }
 
     /**
