@@ -16,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return new CategoryCollection(Category::orderBy('id', 'asc')->paginate(5));
-    }
+        return new CategoryCollection(Category::orderBy('id', 'asc')->get());
+   }
 
     /**
      * Store a newly created resource in storage.
