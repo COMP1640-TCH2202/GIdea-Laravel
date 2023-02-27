@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class AuthController extends Controller
 
     public function user()
     {
-        return Auth::user();
+        return new UserResource(Auth::user());
     }
     
     public function logout()
