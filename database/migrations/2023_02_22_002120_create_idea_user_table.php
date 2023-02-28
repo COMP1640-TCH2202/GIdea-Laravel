@@ -17,9 +17,6 @@ return new class extends Migration
             $table->unsignedInteger('idea_id');
             $table->unsignedInteger('user_id');
             $table->tinyInteger('like')->default(0);
-
-            // $table->foreign('idea_id')->references('id')->on('ideas')->onDelete('cascade');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

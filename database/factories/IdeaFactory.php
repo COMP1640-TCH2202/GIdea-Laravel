@@ -17,7 +17,7 @@ class IdeaFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => rand(1,10),
+            'user_id' => rand(5,10),
             'title' => fake()->text(50),
             'content' => fake()->text(200),
             'anonymous' => fake()->boolean(),
