@@ -11,8 +11,23 @@ class Department extends Model
 
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'coordinator_id'
+    ];
+
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function coordinator()
+    {
+        return $this->belongsTo(User::class, 'coordinator_id', 'id');
     }
 }

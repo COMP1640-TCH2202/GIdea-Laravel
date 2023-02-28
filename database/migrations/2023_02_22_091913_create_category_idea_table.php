@@ -16,9 +16,6 @@ return new class extends Migration
         Schema::create('category_ideas', function (Blueprint $table) {
             $table->unsignedInteger('idea_id');
             $table->unsignedInteger('category_id');
-
-            // $table->foreign('idea_id')->references('id')->on('ideas')->onDelete('cascade');
-            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

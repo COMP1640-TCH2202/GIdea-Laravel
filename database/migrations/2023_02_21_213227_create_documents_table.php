@@ -17,8 +17,6 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('idea_id');
             $table->binary('document')->nullable();
-
-            // $table->foreign('idea_id')->references('id')->on('ideas')->onDelete('cascade');
         });
     }
 

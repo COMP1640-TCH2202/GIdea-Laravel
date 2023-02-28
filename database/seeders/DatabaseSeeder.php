@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RolesSeeder::class);
         $this->call(DepartmentsSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(IdeasSeeder::class);
@@ -23,12 +22,5 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesSeeder::class);
         $this->call(CategoryIdeasSeeder::class);
         $this->call(DocumentsSeeder::class);
-
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

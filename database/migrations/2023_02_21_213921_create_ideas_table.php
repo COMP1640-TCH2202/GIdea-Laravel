@@ -21,8 +21,6 @@ return new class extends Migration
             $table->boolean('anonymous');
             $table->integer('votes')->default(0);
             $table->timestamps($precision = 0);
-
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
