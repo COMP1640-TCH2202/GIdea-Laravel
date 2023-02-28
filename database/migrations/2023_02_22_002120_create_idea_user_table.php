@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('idea_users', function (Blueprint $table) {
+        Schema::create('idea_user', function (Blueprint $table) {
             $table->unsignedInteger('idea_id');
             $table->unsignedInteger('user_id');
-            $table->tinyInteger('like')->default(0);
+            $table->tinyInteger('like');
         });
     }
 

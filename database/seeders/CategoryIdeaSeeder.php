@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\CategoryIdea;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategoryIdeasSeeder extends Seeder
+class CategoryIdeaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
