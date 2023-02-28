@@ -35,12 +35,12 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::table('idea_users', function (Blueprint $table) {
+        Schema::table('idea_user', function (Blueprint $table) {
             $table->foreign('idea_id')->references('id')->on('ideas')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::table('category_ideas', function (Blueprint $table) {
+        Schema::table('category_idea', function (Blueprint $table) {
             $table->foreign('idea_id')->references('id')->on('ideas')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });

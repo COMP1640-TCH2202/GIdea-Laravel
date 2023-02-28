@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\Department;
+use App\Models\Idea;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -61,10 +62,22 @@ class UsersSeeder extends Seeder
             }
         });
 
-        User::factory((5))->create([
-            'role' => 'staff'
-        ])->each(function ($staff) {
-            $staff->update(['department_id' => Department::all()->random()->id]);
-        });
+        $users = User::factory(5)
+            ->create([
+                'role' => 'staff'
+            ])->each(function ($staff) {
+                $staff->update(['department_id' => Department::all()->random()->id]);
+                Idea::factory(5)->create(['user_id' => $staff->id])->each(function ($idea) {
+                    Comment::factory(3)
+                        ->has(Comment::factory(2)
+                            ->state(function (array $attributes, Comment $comment) {
+                                return ['parent_id' => $comment->id, 'idea_id' => $comment->idea_id];
+                            }))
+                        ->create(['idea_id' => $idea->id]);
+                });
+            });
+
+        $votes = [-1, 1];
+        Idea::factory()->count(10)->hasAttached($users, fn() => ['like' => $votes[rand(0,1)]], 'votedUsers')->create();
     }
 }
