@@ -72,6 +72,20 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if (!$category->ideas->first()) {
+            $category->delete();
+            return new JsonResponse(
+                [
+                    'message' => 'Deleted category ' . $category->name
+                ],
+                Response::HTTP_OK
+            );
+        }
+        return new JsonResponse(
+            [
+                'message' => 'Category ' . $category->name . ' is still in use'
+            ],
+            Response::HTTP_BAD_REQUEST
+        );
     }
 }
