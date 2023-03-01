@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Department\DepartmentCollection;
+use App\Http\Resources\Department\DepartmentResource;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,11 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return new DepartmentCollection(Department::get());
+        return new DepartmentCollection(Department::withCount([
+            'users' => function ($query) {
+                $query->where('role', 'staff');
+            }
+        ])->get());
     }
 
     /**
@@ -37,7 +42,7 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        
+        return new DepartmentResource($department->load('users'));
     }
 
     /**
