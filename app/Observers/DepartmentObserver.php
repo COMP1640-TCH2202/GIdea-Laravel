@@ -30,9 +30,11 @@ class DepartmentObserver
      */
     public function updating(Department $department)
     {
-        $user = User::find($department->getOriginal('coordinator_id'));
-        $user->department_id = null;
-        $user->save();
+        if ($department->getOriginal('coordinator_id')) {
+            $user = User::find($department->getOriginal('coordinator_id'));
+            $user->department_id = null;
+            $user->save();
+        }
     }
 
     /**

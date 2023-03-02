@@ -79,5 +79,10 @@ class UsersSeeder extends Seeder
 
         $votes = [-1, 1];
         Idea::factory()->count(10)->hasAttached($users, fn() => ['like' => $votes[rand(0,1)]], 'votedUsers')->create();
+
+        User::factory(3)->create([
+            'role' => 'coordinator'
+        ]);
+        
     }
 }
