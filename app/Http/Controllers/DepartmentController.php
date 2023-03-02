@@ -6,6 +6,8 @@ use App\Http\Requests\DepartmentRequest;
 use App\Http\Resources\Department\DepartmentCollection;
 use App\Http\Resources\Department\DepartmentResource;
 use App\Models\Department;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class DepartmentController extends Controller
 {
@@ -54,7 +56,15 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $request, Department $department)
     {
-        //
+        $department->name = $request->validated()['name'];
+        $department->coordinator_id = $request->validated()['coordinator_id'];
+        if ($department->isDirty()) {
+            $department->update($request->validated());
+            return new DepartmentResource($department);
+        }
+        return new JsonResponse([
+            'message' => 'The data was not changed'
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     /**
