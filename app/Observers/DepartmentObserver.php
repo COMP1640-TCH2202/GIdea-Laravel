@@ -15,7 +15,11 @@ class DepartmentObserver
      */
     public function created(Department $department)
     {
-        //
+        if ($department->coordinator_id) {
+            $user = User::find($department->coordinator_id);
+            $user->department_id = $department->id;
+            $user->save();
+        }
     }
 
     /**
