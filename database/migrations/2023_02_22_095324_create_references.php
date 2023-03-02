@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('departments', function (Blueprint $table) {
-            $table->foreign('coordinator_id')->references('id')->on('users')->onDelete('cascade'); 
+            $table->foreign('coordinator_id')->references('id')->on('users')->onDelete('set null'); 
         });
         
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade'); 
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null'); 
         });
 
         Schema::table('comments', function (Blueprint $table) {
