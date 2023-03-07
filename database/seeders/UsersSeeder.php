@@ -18,14 +18,21 @@ class UsersSeeder extends Seeder
     public function run()
     {
         User::factory()->create([
+            'email' => 'admin@example.com',
             'role' => 'admin',
         ]);
 
         User::factory()->create([
+            'email' => 'manager@example.com',
             'role' => 'manager',
         ]);
 
-        User::factory(3)->create([
+        User::factory()->create([
+            'email' => 'coordinator@example.com',
+            'role' => 'coordinator',
+        ]);
+
+        User::factory(2)->create([
             'role' => 'coordinator',
         ])->each(function ($coordinator) {
 
