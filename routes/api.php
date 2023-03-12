@@ -18,9 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 
+// temporary moved out to by pass authentication
+Route::get('user', [AuthController::class, 'user']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('departments', DepartmentController::class);
+
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('user', [AuthController::class, 'user']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('departments', DepartmentController::class);
+    // Content temporary moved out
 });
