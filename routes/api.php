@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,7 @@ Route::get('user', [AuthController::class, 'user']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('departments', DepartmentController::class);
+Route::apiResource('users', UserController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Content temporary moved out
