@@ -10,14 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
         if (!Auth::attempt($credentials)) {
             return response([
                 'message' => 'Invalid credentials'
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         /** @var \App\Models\User $user **/
@@ -25,10 +25,11 @@ class AuthController extends Controller
 
         $token = $user->createToken('token')->plainTextToken;
 
-        $cookie = cookie('jwt', $token, 60);
+        $cookie = cookie('jwt', $token, 60 * 24);
 
         return response([
-            'message' => 'Success'
+            'message' => 'Success',
+            'user' => $user
         ])->withCookie($cookie);
     }
 
@@ -36,7 +37,7 @@ class AuthController extends Controller
     {
         return new UserResource(Auth::user());
     }
-    
+
     public function logout()
     {
         $cookie = Cookie::forget('jwt');
@@ -44,5 +45,4 @@ class AuthController extends Controller
             'message' => 'Logged out'
         ])->withCookie($cookie);
     }
-
 }
