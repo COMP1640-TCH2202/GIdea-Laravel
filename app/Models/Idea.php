@@ -47,4 +47,9 @@ class Idea extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

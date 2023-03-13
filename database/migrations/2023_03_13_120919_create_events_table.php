@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('open_date');
-            $table->dateTime('first_closure_date');
-            $table->dateTime('final_closure_date');
+            $table->date('open_date');
+            $table->date('first_closure_date');
+            $table->date('final_closure_date');
             $table->timestamps();
         });
     }

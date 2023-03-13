@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEventRequest;
-use App\Http\Requests\UpdateEventRequest;
+use App\Http\Requests\EventRequest;
+use App\Http\Resources\Event\EventCollection;
+use App\Http\Resources\Event\EventResource;
 use App\Models\Event;
+use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class EventController extends Controller
 {
@@ -15,18 +19,25 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        return new EventCollection(Event::orderBy('open_date')->get());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreEventRequest  $request
+     * @param  \App\Http\Requests\EventRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEventRequest $request)
+    public function store(EventRequest $request)
     {
-        //
+        $latestEvent = Event::latest()->first();
+        $latestEventDate = Carbon::parse($latestEvent->final_closure_date);
+        if ($latestEventDate->gte(Carbon::now())) {
+            return new JsonResponse([
+                'message' => "Can't create new event at the moment, there is an event going on."
+            ], Response::HTTP_BAD_REQUEST);
+        }
+        return new EventResource(Event::create($request->validated()));
     }
 
     /**
@@ -43,11 +54,11 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateEventRequest  $request
+     * @param  \App\Http\Requests\EventRequest  $request
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEventRequest $request, Event $event)
+    public function update(EventRequest $request, Event $event)
     {
         //
     }

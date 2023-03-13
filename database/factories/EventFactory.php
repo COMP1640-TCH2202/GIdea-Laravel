@@ -18,9 +18,9 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-            'open_date' => Carbon::now(),
-            'first_closure_date' => Carbon::now()->addWeek(),
-            'final_closure_date' => Carbon::now()->addWeeks(2)
+            'open_date' => Carbon::now()->toDateString(),
+            'first_closure_date' => Carbon::now()->addWeek()->toDateString(),
+            'final_closure_date' => Carbon::now()->addWeeks(2)->toDateString()
         ];
     }
 }

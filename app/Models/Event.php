@@ -19,4 +19,8 @@ class Event extends Model
         'first_closure_date',
         'final_closure_date'
     ];
+
+    public function ideas() {
+        return $this->hasMany(Idea::class);
+    }
 }
