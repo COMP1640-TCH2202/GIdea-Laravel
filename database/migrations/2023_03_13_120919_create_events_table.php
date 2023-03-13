@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ideas', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('event_id');
-            $table->string('title');
-            $table->text('content');
-            $table->boolean('anonymous');
-            $table->integer('votes')->default(0);
-            $table->timestamps($precision = 0);
+            $table->date('open_date');
+            $table->date('first_closure_date');
+            $table->date('final_closure_date');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ideas');
+        Schema::dropIfExists('events');
     }
 };

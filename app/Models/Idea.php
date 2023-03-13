@@ -16,10 +16,11 @@ class Idea extends Model
      */
     protected $fillable = [
         'user_id',
+        'event_id',
         'title',
         'content',
         'anonymous',
-        'votes'
+        'votes',
     ];
 
     public function user()
@@ -45,5 +46,10 @@ class Idea extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 }
