@@ -16,10 +16,11 @@ class Idea extends Model
      */
     protected $fillable = [
         'user_id',
+        'event_id',
         'title',
         'content',
         'anonymous',
-        'votes'
+        'votes',
     ];
 
     public function user()

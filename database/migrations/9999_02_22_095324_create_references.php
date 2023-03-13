@@ -33,6 +33,7 @@ return new class extends Migration
 
         Schema::table('ideas', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
         });
 
         Schema::table('idea_user', function (Blueprint $table) {

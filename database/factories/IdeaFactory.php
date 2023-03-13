@@ -18,6 +18,7 @@ class IdeaFactory extends Factory
     {
         return [
             'user_id' => rand(5,10),
+            'event_id' => 1,
             'title' => fake()->text(50),
             'content' => fake()->text(200),
             'anonymous' => fake()->boolean(),
