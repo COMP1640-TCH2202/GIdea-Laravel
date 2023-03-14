@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreIdeaRequest;
-use App\Http\Requests\UpdateIdeaRequest;
+use App\Http\Requests\IdeaRequest;
 use App\Http\Resources\Idea\IdeaResource;
 use App\Models\Event;
 use App\Models\Idea;
@@ -34,10 +33,10 @@ class IdeaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreIdeaRequest  $request
+     * @param  \App\Http\Requests\IdeaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreIdeaRequest $request)
+    public function store(IdeaRequest $request)
     {
         $input = $request->validated();
         $latestEvent = Event::latest()->first();
@@ -64,11 +63,11 @@ class IdeaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateIdeaRequest  $request
+     * @param  \App\Http\Requests\IdeaRequest  $request
      * @param  \App\Models\Idea  $idea
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateIdeaRequest $request, Idea $idea)
+    public function update(IdeaRequest $request, Idea $idea)
     {
         //
     }
