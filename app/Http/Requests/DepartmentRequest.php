@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\CoordinatorRule;
+use App\Rules\DepartmentCoordinatorRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -52,7 +52,7 @@ class DepartmentRequest extends FormRequest
                 'numeric',
                 'exists:users,id',
                 Rule::unique('departments')->ignore($this->department?->id),
-                new CoordinatorRule
+                new DepartmentCoordinatorRule
             ]
         ];
     }
