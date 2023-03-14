@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IdeaRequest;
+use App\Http\Resources\Idea\IdeaResource;
+use App\Models\Event;
 use App\Models\Idea;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IdeaController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Idea::class, 'ideas');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,12 +33,20 @@ class IdeaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\IdeaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(IdeaRequest $request)
     {
-        //
+        $input = $request->validated();
+        $latestEvent = Event::latest()->first();
+        return new IdeaResource(Idea::create([
+            'title' => $input['title'],
+            'content' => $input['content'],
+            'anonymous' => $input['anonymous'],
+            'event_id' => $latestEvent->id,
+            'user_id' => Auth::user()['id']
+        ]));
     }
 
     /**
@@ -42,11 +63,11 @@ class IdeaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\IdeaRequest  $request
      * @param  \App\Models\Idea  $idea
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Idea $idea)
+    public function update(IdeaRequest $request, Idea $idea)
     {
         //
     }

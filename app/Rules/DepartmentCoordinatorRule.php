@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\User;
 use Illuminate\Contracts\Validation\InvokableRule;
 
-class CoordinatorRule implements InvokableRule
+class DepartmentCoordinatorRule implements InvokableRule
 {
     /**
      * Run the validation rule.
